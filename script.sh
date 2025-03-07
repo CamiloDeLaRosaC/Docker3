@@ -2,7 +2,7 @@ echo "Ingresa el nombre exacto del archivo (ej: sample.java):"
 read archivo
 
 if [ ! -f "$archivo" ]; then
-  echo "Error: Sube el archivo primero usando el menú de PWD."
+  echo "Error: El archivo no existe o no es compatible con el script.sh"
   exit 1
 fi
 
