@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo "Ingresa la ruta del archivo ejemplo (Sample.py):"
+echo "Ingresa la ruta del archivo ejemplo (sample.py):"
 read archivo
 if [ ! -f "$archivo" ]; then
   echo "Error: El archivo no existe."
@@ -40,4 +40,4 @@ fin=$(date +%s%3N)
 let tiempo=$fin-$inicio
 echo "Salida del programa:"
 echo "$salida"
-echo "Tiempo de ejecución: ${tiempo} ms"
+echo "Tiempo de ejecución del contenedor: ${tiempo} ms"
