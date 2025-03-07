@@ -9,25 +9,25 @@ extension="${archivo##*.}"
 case "$extension" in
   "py")
     imagen="python:3.9"
-    comando="python $archivo"
+    comando=(python "$archivo")
     ;;
   "java")
     imagen="openjdk:17"
     clase=$(basename "$archivo" .java)
-    comando="sh -c 'javac $archivo && java $clase'"
+    comando=(sh -c "javac '$archivo' && java '$clase'")
     ;;
   "cpp"|"cc")
     imagen="gcc:latest"
-    exe=$(basename "$archivo" .cpp)
-    comando="sh -c 'g++ $archivo -o $exe && ./$exe'"
+    exe=$(basename "$archivo" ."$extension")
+    comando=(sh -c "g++ '$archivo' -o '$exe' && ./'$exe'")
     ;;
   "js")
     imagen="node:latest"
-    comando="node $archivo"
+    comando=(node "$archivo")
     ;;
   "rb")
     imagen="ruby:latest"
-    comando="ruby $archivo"
+    comando=(ruby "$archivo")
     ;;
   *)
     echo "Error: Extensión no soportada."
@@ -35,9 +35,9 @@ case "$extension" in
     ;;
 esac
 inicio=$(date +%s%3N)
-salida=$(docker run --rm -v "$(pwd)":/usr/src/app -w /usr/src/app "$imagen" $comando 2>&1)
+salida=$(docker run --rm -v "$(pwd)":/usr/src/app -w /usr/src/app "$imagen" "${comando[@]}" 2>&1)
 fin=$(date +%s%3N)
-let tiempo=$fin-$inicio
+tiempo=$((fin - inicio))
 echo "Salida del programa:"
 echo "$salida"
 echo "Tiempo de ejecución del contenedor: ${tiempo} ms"
