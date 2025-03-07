@@ -24,8 +24,8 @@ int main(){
     }
 
     auto end = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
 
-    cout << "Tiempo de ejecución (en C++): " << duration << " ms" << endl;
+    cout << "Tiempo de ejecución (en C++): " << duration.count() / 1000.0 << " ms" << endl;
     return 0;
 }
